@@ -111,7 +111,6 @@ def main():
     try:
         open_the_website("www.nytimes.com")
         browser_lib.click_button("data:testid:GDPR-reject")
-        click_button("class:ea180rp1")
         search_for(search_phrase)
 
         try:
