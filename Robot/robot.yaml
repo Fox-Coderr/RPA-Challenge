@@ -1,0 +1,37 @@
+tasks:
+  # You can define 1..n tasks to a robot.
+  # Naming: Think of actions or verbs this robot can perform.
+  # Task names given here are visible in Control Room.
+
+  # The task supports three ways of defining the action performed:
+  # `command`, `shell` or `robotTaskName`.
+  # Below are examples for each.
+
+  User specified task name:
+    # 'shell': You have to quote items in the command with spaces using "
+    shell: python -m tasks 
+
+condaConfigFile:
+  config/conda.yaml
+  # A relative path to your environment config file.
+  # Defining the conda.yaml file is optional.
+  # E.g., if the running environment is preset and you don't need any setup.
+
+artifactsDir:
+  output
+  # A relative path to a folder where the artifacts are stored.
+  # The contents of this folder will be sent to Control Room.
+
+PATH:
+  # The paths listed here are added to the PATH environment variable
+  # for the duration of the execution.
+  - .src
+PYTHONPATH:
+  # The paths listed here are added to the PYTHONPATH environment variable
+  # for the duration of the execution.
+  - .src
+ignoreFiles:
+  # A relative path to the .gitignore file that controls what is placed in the
+  # robot zip file. This can be used to control what items are not packaged
+  # when pushing the robot to Control Room. Defining this is optional.
+  - .gitignore

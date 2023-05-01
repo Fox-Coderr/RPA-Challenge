@@ -1,0 +1,12 @@
+[
+    {
+        "payload": {
+            "SEARCH_PHRASE": "Python",
+            "SECTION_CHECKBOX_LIST": [],
+            "STOP_ON_SECTION_ERROR": true,
+            "TYPE_CHECKBOX_LIST": [],
+            "STOP_ON_TYPE_ERROR": true,
+            "NUM_MONTHS":5
+        }
+    }
+]
