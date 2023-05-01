@@ -76,8 +76,9 @@ def select_date_range(num_months):
     input_date("id:startDate", limit_date)
     input_date("id:endDate", date.today().strftime("%m/%d/%Y"))
     browser_lib.click_element_when_visible(
-        "xpath:/html/body/div/div[2]/main/div/div[1]/div[2]/div/div/div[1]" +
-        "/div/div/div/div[2]/div/div/div/div/div[2]/div/div[3]/div[6]/div[1]")
+        "xpath:/html/body/div/div[2]/main/div/div[1]/div[2]/div/" +
+        "div/div[1]/div/div/div/div[2]/div/div/div/div/div[2]/div" +
+        "/div[3]/div[5]/div[4]")
 
 
 def main():
@@ -111,6 +112,7 @@ def main():
     try:
         open_the_website("www.nytimes.com")
         browser_lib.click_button("data:testid:GDPR-reject")
+        click_button("data:test-id:search-button")
         search_for(search_phrase)
 
         try:
