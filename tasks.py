@@ -1,17 +1,17 @@
-import time
 import requests
 import os.path
 import re
 from datetime import date
+from pathlib import Path
 from dateutil.relativedelta import relativedelta
 from SeleniumLibrary.errors import ElementNotFound
-from pathlib import Path
-from openpyxl import Workbook
+from RPA.Excel.Files import Files
 from variables import *
 
 
 def open_the_website(url):
     browser_lib.open_available_browser(url)
+    browser_lib.maximize_browser_window()
 
 
 def handle_unknown_error(filename):
@@ -81,6 +81,15 @@ def select_date_range(num_months):
         "/div[3]/div[5]/div[4]")
 
 
+def get_excel_file():
+    path = os.path.join(os.path.dirname(
+            __file__), "output", "articles.xlsx")
+    excel_workbook = Files()
+    excel_workbook.create_workbook(path=path, fmt="xlsx")
+    excel_workbook.save_workbook()
+    return excel_workbook, path
+
+
 def main():
     try:
         wi.get_input_work_item()
@@ -109,6 +118,7 @@ def main():
     except:
         raise Exception(
             "Make sure that all variables are configured correctly")
+    excel_workbook, path_xlsx = get_excel_file()
     try:
         open_the_website("www.nytimes.com")
         browser_lib.click_button("data:testid:GDPR-reject")
@@ -150,12 +160,8 @@ def main():
 
         run = True
         i = 1
-        wb = Workbook()
-        ws = wb.active
-        ws.append(["Date", "Title", "Description",
-                  "Image name", "Count", "Money"])
-        path_xlsx = os.path.join(os.path.dirname(
-            __file__), "output", "nytimesnews.xlsx")
+        excel_workbook.append_rows_to_worksheet(
+            [["Date", "Title", "Description", "Image name", "Count", "Money"]])
         retry = False
 
         while run:
@@ -198,11 +204,9 @@ def main():
                 money = True if re.search(regex, title) or re.search(
                     regex, description) else False
 
-                ws.append(
-                    [news_date, title, description, img, count, money])
+                excel_workbook.append_rows_to_worksheet(
+                    [[news_date, title, description, img, count, money]])
                 i += 1
-
-                wb.save(path_xlsx)
                 retry = False
             except:
                 if retry:
@@ -210,6 +214,7 @@ def main():
                 retry = True
 
     finally:
+        excel_workbook.save_workbook()
         browser_lib.close_all_browsers()
 
 
