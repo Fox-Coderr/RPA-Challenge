@@ -23,11 +23,11 @@ def click_button(term):
 
 
 def get_img(url, title):
-    Path(os.path.dirname(__file__), "output", "downloads").mkdir(
+    Path(os.path.dirname(__file__), "output").mkdir(
         parents=True, exist_ok=True)
     filename = title+" image.jpg"
     filepath = os.path.join(os.path.dirname(__file__),
-                            "output", "downloads", filename)
+                            "output", filename)
     response = requests.get(url, timeout=10)
     with open(filepath, "wb") as file:
         file.write(response.content)
